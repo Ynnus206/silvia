@@ -1,0 +1,137 @@
+
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>華語語法點教學生成器</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <header class="hero">
+    <div class="container">
+      <p class="eyebrow">CHINESE LANGUAGE TEACHING</p>
+      <h1>華語語法點教學生成器</h1>
+      <p>從語法分析、結構引導到投影片教學，建立完整的教學提示詞。</p>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="notice">
+      <strong>使用說明</strong>
+      <p>先設定目標生詞，再生成結構性提示詞。接著可將提示詞送入投影片引導區，產生逐張投影片的教學稿。</p>
+    </section>
+
+    <section class="workflow">
+      <div class="step"><span>01</span><h3>語法點分析</h3><p>詞性與句法功能</p></div>
+      <div class="step"><span>02</span><h3>結構引導</h3><p>句型、語序與搭配</p></div>
+      <div class="step"><span>03</span><h3>教學 Slides</h3><p>規劃投影片內容</p></div>
+      <div class="step"><span>04</span><h3>語意引導</h3><p>詞義與使用情境</p></div>
+      <div class="step"><span>05</span><h3>用法與例句</h3><p>操練與生活應用</p></div>
+      <div class="step"><span>06</span><h3>整合輸出</h3><p>完整結構性提示詞</p></div>
+    </section>
+
+    <section class="panel">
+      <div class="card">
+        <h2>一、提示詞設定</h2>
+        <p class="muted">輸入基本資料，建立專屬的語法點教學提示詞。</p>
+
+        <div class="form-grid">
+          <div class="field">
+            <label for="word">目標生詞</label>
+            <input id="word" value="計畫">
+          </div>
+
+          <div class="field">
+            <label for="level">學生程度</label>
+            <select id="level">
+              <option>初級</option>
+              <option selected>中級</option>
+              <option>高級</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="focus">主要教學用法</label>
+            <select id="focus">
+              <option value="動詞用法：計畫＋動作">動詞：計畫＋動作</option>
+              <option value="名詞用法：某人的計畫">名詞：某人的計畫</option>
+              <option value="比較名詞與動詞用法">名詞與動詞比較</option>
+              <option value="先分析詞性再決定教學用法">先分析，再決定</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="duration">教學時間</label>
+            <select id="duration">
+              <option>15 分鐘</option>
+              <option selected>30 分鐘</option>
+              <option>45 分鐘</option>
+              <option>60 分鐘</option>
+            </select>
+          </div>
+
+          <div class="field full">
+            <label for="known">學生已學詞語</label>
+            <textarea id="known">今天、明天、週末、去、買、衣服、朋友、學校、旅行</textarea>
+          </div>
+
+          <div class="field full">
+            <label for="example">課本例句</label>
+            <textarea id="example">我計畫明年去日本旅行。</textarea>
+          </div>
+
+          <div class="field full">
+            <label for="needs">其他教學需求</label>
+            <textarea id="needs">使用簡單清楚的繁體中文，提供教師提問、學生回答、替換練習、錯誤辨識與生活情境應用。</textarea>
+          </div>
+        </div>
+
+        <div class="actions">
+          <button class="btn primary" id="generatePrompt">生成結構性提示詞</button>
+          <button class="btn secondary" id="resetForm">恢復預設</button>
+        </div>
+        <p class="status" id="promptStatus" aria-live="polite"></p>
+      </div>
+
+      <div class="card">
+        <h2>二、結構性提示詞</h2>
+        <p class="muted">生成後可直接複製，或帶入下方投影片引導區。</p>
+        <textarea id="promptOutput" class="large-output" placeholder="按下「生成結構性提示詞」後，內容會顯示在這裡。"></textarea>
+        <div class="actions">
+          <button class="btn primary" id="copyPrompt">複製提示詞</button>
+          <button class="btn secondary" id="downloadPrompt">下載 TXT</button>
+          <button class="btn secondary" id="sendToSlides">帶入投影片區</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="card slide-section">
+      <h2>三、輸入提示詞，生成投影片引導</h2>
+      <p class="muted">可以貼上自行撰寫的提示詞，或將上方產生的結構性提示詞帶入這裡。</p>
+
+      <div class="field">
+        <label for="slidePrompt">投影片生成提示詞</label>
+        <textarea id="slidePrompt" class="prompt-input" placeholder="例如：請針對「計畫」設計華語教學投影片，包含語意、句型結構、例句、教師引導、操練與應用。"></textarea>
+      </div>
+
+      <div class="actions">
+        <button class="btn primary" id="generateSlides">生成投影片引導</button>
+        <button class="btn secondary" id="fillExample">填入計畫範例</button>
+        <button class="btn secondary" id="copySlides">複製投影片引導</button>
+        <button class="btn secondary" id="downloadSlides">下載投影片 TXT</button>
+      </div>
+
+      <p class="status" id="slideStatus" aria-live="polite"></p>
+      <div id="slidesOutput" class="slides-output">
+        <p class="placeholder">投影片引導稿將顯示在這裡。</p>
+      </div>
+    </section>
+
+    <footer>
+      華語教學教材設計｜HTML、CSS、JavaScript
+    </footer>
+  </main>
+</body>
+</html>
